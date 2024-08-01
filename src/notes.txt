@@ -1,0 +1,78 @@
+Instructions:
+Opcode - [Operand 1] - [Operand 2]
+
+Arithmetic -
+add [regx] [regy]
+ regx = regx + regy
+ Opcode: 0000
+
+sub [regx] [regy]
+ regx = regx - regy
+ Opcode: 0001
+ *if regy > regx then returns 0
+
+lshf [regx] data
+ regx << data
+ Opcode: 0010
+
+mul [regx] [regy]
+ regx = regx * regy
+ Opcode: 0011
+
+div [regx] [regy]
+ regx = regx / regy
+ opcode: 0100
+*div by 0 results in 0 being stored in regx
+
+Data Movement -
+get [regx], [regy]
+ [regx] = &regy
+ Opcode: 0101
+
+put [regx], [regy]
+ &regy = [regx]
+ Opcode: 0110
+
+Program flow -
+jz [regx]
+ if (ZF == 1) then
+ IR = [regx]
+ else 
+ nothing
+ opcode: 1000
+ 
+
+Condition codes:
+ZF - if previous add/sub/mul/div/lshf instruction resulted in 0
+Executing next instruction will always clear this register
+
+Registers
+
+General Purpose Registers
+All 16 bits in size
+reg0 - 0000
+reg1 - 0001
+reg2 - 0010
+reg3 - 0011
+reg4 - 0100
+reg5 - 0101
+reg6 - 0110
+reg7 - 0111
+
+CPU Registers
+IPR - Instruction Pointer Register - 1100
+    Holds the address for the next instruction to run
+IR - Instruction Register - 1010
+    Contains the value of the current instruction to run
+DR - Data Register - 1001
+    Used to store data in between Execute and Write back states
+ZF - Zero flag register - 1000
+ *is set (active high) only from the listed arithmetic operations
+ Add [reg] [reg]
+ sub [reg] [reg]
+ mul [reg] [reg]
+ div [reg] [reg]
+
+
+
+ 
